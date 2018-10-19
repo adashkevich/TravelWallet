@@ -60,7 +60,7 @@
 
                     <il>
                         <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true"
-                           data-searchbar="true" data-searchbar-placeholder="{{users.length}} {{locale_str.user_search_placeholder}}">
+                           data-searchbar="true" data-searchbar-placeholder="{{locale_str.search_placeholder}}">
                             <select name="payer" @change="change" required>
                                 {{#each users}}
                                     <option value="{{user_id}}">{{name}}</option>
@@ -76,7 +76,7 @@
 
                     <il>
                         <a class="item-link smart-select smart-select-init smart-select-participant" data-open-in="popup"
-                           data-searchbar="true" data-searchbar-placeholder="{{users.length}} {{locale_str.user_search_placeholder}}">
+                           data-searchbar="true" data-searchbar-placeholder="{{locale_str.search_placeholder}}">
                             <select name="participant" @change="change" required multiple>
                                 {{#each users}}
                                     <option value="{{user_id}}">{{name}}</option>

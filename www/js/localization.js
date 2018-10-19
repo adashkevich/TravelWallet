@@ -19,8 +19,7 @@ var locale_strings = {
         people_subtitle: 'people',
 
         debt_title_placeholder: 'Debt title',
-        user_search_placeholder: 'users',
-        currency_search_placeholder: 'Currency search',
+        search_placeholder: 'Search',
         payment_placeholder: 'Payment title',
         payment_amount_placeholder:  'Payment amount',
 
