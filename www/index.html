@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>My App</title>
+    <!-- Path to Framework7 Library CSS, Material Theme -->
+    <link rel="stylesheet" href="lib/framework7v2/css/framework7.min.css">
+    <link rel="stylesheet" href="lib/framework7v2/css/framework7-icons.css">
+    <link rel="stylesheet" href="lib/croppie/croppie.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- App root element -->
+<div id="app">
+    <!-- Statusbar overlay -->
+    <div class="statusbar"></div>
+
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+        <!-- Initial Page, "data-name" contains page name -->
+        <div data-name="init" class="page">
+            <!-- Top Navbar -->
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="title">Travel Wallet</div>
+                </div>
+            </div>
+
+            <!-- Scrollable page content -->
+            <div class="page-content">
+                <div class="preloader color-blue" style="width: 44px; height: 44px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="calculation-template" type="text/template7">
+    {{#if book.length}}
+    <ul class="generated">
+        {{#each book}}
+        <li>
+            <a href="#" class="item-link item-content">
+                <div class="item-inner">
+                    <div class="item-title-row">
+                        <div class="item-subtitle">
+                            <span>{{name debtor}}</span>
+                            <span class="owe-separator">{{../locale_str.money_owe_label}}</span>
+                            <span>{{name creditor}}</span></div>
+                    </div>
+                    <div class="item-row calculation-total justify-content-flex-start">
+                        <span>{{format_amount amount}}</span>
+                        <span class="calculation-total-currency">{{currency ../currency_id}}</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</script>
+
+<script id="details-template" type="text/template7">
+    <il class="generated">
+        <div class="item-content">
+            <div class="item-inner">
+                <div class="item-title">{{locale_str.money_spent_label}}</div>
+                <div class="item-after">{{format_amount details.spent}}<span class="currency">{{currency ../currency_id}}</span>
+                </div>
+            </div>
+        </div>
+    </il>
+    <il class="generated">
+        <div class="item-content">
+            <div class="item-inner">
+                <div class="item-title">{{locale_str.money_pay_label}}</div>
+                <div class="item-after">{{format_amount details.pay}}<span
+                        class="currency">{{currency ../currency_id}}</span></div>
+            </div>
+        </div>
+    </il>
+    <il class="generated">
+        <div class="item-content">
+            <div class="item-inner">
+                {{#if details.debtor}}
+                <div class="item-title">{{locale_str.money_payback_label}}</div>
+                {{else}}
+                <div class="item-title">{{locale_str.money_receive_label}}</div>
+                {{/if}}
+                <div class="item-after">{{format_amount details.difference}}<span class="currency">{{currency ../currency_id}}</span>
+                </div>
+            </div>
+        </div>
+    </il>
+</script>
+
+<script id="contact-new-template" type="text/template7">
+    <div class="popup generated">
+        <div class="view">
+            <div class="page">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a href="#" class="popup-close link">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">{{locale_str.back}}</span>
+                            </a>
+                        </div>
+                        <div class="title">{{locale_str.new_user_page_title}}</div>
+                        <div class="right">
+                            <a id="participant-new-submit" href="#" class="link link-disabled">
+                                {{#if device.android}}
+                                <i class="f7-icons">check</i>
+                                {{/if}}
+                                <span class="ios-only">{{locale_str.done}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    <form class="list no-hairlines-md" id="participant-new-form">
+                        <ul>
+                            <li class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">{{locale_str.user_name_title}}</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" name="name" required validate placeholder="{{locale_str.user_name_example}}">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">{{locale_str.phone_title}}</div>
+                                    <div class="item-input-wrap">
+                                        <input type="number" required validate name="phone" placeholder="{{locale_str.phone_example}}">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item-content item-input">
+                                <div class="item-inner">
+                                    <button class="button col file-button">
+                                        <span>{{locale_str.choose_photo_btn}}</span>
+                                        <input type="file" accept="image/*"/>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    <div class="avatar-wrapper">
+                        <img id="avatar" src="{{avatar}}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript" src="cordova.js"></script>
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="lib/framework7v2/js/framework7.min.js"></script>
+<script type="text/javascript" src="lib/croppie/croppie.js"></script>
+<script type="text/javascript" src="js/helpers.js"></script>
+<!-- Path to services-->
+<script type="text/javascript" src="js/localization.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/popup.js"></script>
+<script type="text/javascript" src="js/service.js"></script>
+<script type="text/javascript" src="js/service/auth.js"></script>
+<script type="text/javascript" src="js/service/debt.js"></script>
+<script type="text/javascript" src="js/service/payment.js"></script>
+<script type="text/javascript" src="js/service/currency.js"></script>
+<script type="text/javascript" src="js/service/user.js"></script>
+<script type="text/javascript" src="js/service/engine.js"></script>
+<script type="text/javascript" src="js/service/image.js"></script>
+<script type="text/javascript" src="js/service/sync.js"></script>
+<script type="text/javascript" src="js/service/initialization.js"></script>
+<script type="text/javascript" src="js/migration.js"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>

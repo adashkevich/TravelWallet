@@ -1,0 +1,171 @@
+<template>
+    <div data-name="payment-new" class="page">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <a href="#" class="back link">
+                        <i class="icon icon-back"></i>
+                        <span class="ios-only">{{locale_str.back}}</span>
+                    </a>
+                </div>
+                <div class="title">{{locale_str.new_payment_page_title}}</div>
+                <div class="right">
+                    <a @click="create" id="payment-new-submit" href="#" class="link link-disabled">
+                        {{#if device.android}}
+                        <i class="f7-icons">check</i>
+                        {{/if}}
+                        <span class="ios-only">{{locale_str.done}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <form class="list no-hairlines-md" id="payment-new-form">
+                <input type="hidden" name="debt_id" value="{{$route.params.debt_id}}">
+                <ul>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">{{locale_str.title}}</div>
+                            <div class="item-input-wrap">
+                                <input @change="change" type="text" name="title" required validate placeholder="{{locale_str.payment_placeholder}}">
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">{{locale_str.payment_amount_title}}</div>
+                            <div class="item-input-wrap">
+                                <input @change="change" type="number" step="0.01" name="amount" required validate placeholder="{{locale_str.payment_amount_placeholder}}">
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true">
+                            <select name="currency" @change="change" required>
+                                {{#each currencies}}
+                                    <option value="{{this.currency_id}}">{{this.title}}</option>
+                                {{/each}}
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">{{locale_str.currency_title}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+                    <il>
+                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true"
+                           data-searchbar="true" data-searchbar-placeholder="{{users.length}} {{locale_str.user_search_placeholder}}">
+                            <select name="payer" @change="change" required>
+                                {{#each users}}
+                                    <option value="{{user_id}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">{{locale_str.payer_title}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </il>
+
+                    <il>
+                        <a class="item-link smart-select smart-select-init smart-select-participant" data-open-in="popup"
+                           data-searchbar="true" data-searchbar-placeholder="{{users.length}} {{locale_str.user_search_placeholder}}">
+                            <select name="participant" @change="change" required multiple>
+                                {{#each users}}
+                                    <option value="{{user_id}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">{{locale_str.participants_title}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </il>
+                </ul>
+            </form>
+        </div>
+    </div>
+</template>
+
+<style>
+
+</style>
+
+<!--suppress JSAnnotator -->
+<script>
+    function validate() {
+        var formData = app.form.convertToData('#payment-new-form');
+        if(formData.title && formData.amount && formData.currency && formData.participant.length && formData.payer) {
+            $$('#payment-new-submit').removeClass('link-disabled');
+        } else {
+            $$('#payment-new-submit').addClass('link-disabled');
+        }
+    }
+
+    return {
+        data: function () {
+            var debt = service.debt.get(this.$route.params.debt_id);
+
+            return app.utils.extend({}, app.data, {
+                currencies: service.currency.getByIds(debt.currency),
+                users: service.user.getByIds(debt.participant),
+                current_user: app.data.current_user,
+                device: app.device
+            });
+        },
+        methods: {
+            create: function () {
+                if(!$$('#payment-new-submit').hasClass('link-disabled')) {
+                    service.payment.create(app.form.convertToData('#payment-new-form'), function (result) {
+                        app.views.current.router.back({force: true});
+                    }.bind(this));
+                }
+            },
+            change: function () {
+                validate();
+            }
+        },
+        on: {
+            pageInit: function () {
+                $$('.smart-select-participant').on('smartselect:open', function () {
+                    var $$page = $$('.smart-select-page'),
+                        option_count = $$page.find('input[type="checkbox"]').length,
+                        select_all = true;
+
+                    function isCheckedMore() {
+                        return $$page.find('input[type="checkbox"]:checked').length > option_count / 2
+                    }
+
+                    $$page.addClass('page-with-select-all');
+                    $$page.find('.page-content').prepend('<div class="select-all"><a class="link" href="#">select all</a></div>');
+
+                    $$page.on('change', 'input[type="checkbox"]', function () {
+                        if(isCheckedMore() && select_all) {
+                            $$page.find('.select-all a').text('unselect all');
+                            select_all = false;
+                            console.log('unselect all');
+                        } else if (!isCheckedMore() && !select_all) {
+                            $$page.find('.select-all a').text('select all');
+                            select_all = true;
+                            console.log('select all');
+                        }
+                    });
+
+                    $$page.find('.select-all a').click(function () {
+                        $$page.find('input[type="checkbox"]').prop('checked', select_all).trigger('change');
+                    });
+
+                    $$page.find('input[type="checkbox"]').eq(0).trigger('change');
+                });
+            }
+        }
+    };
+</script>

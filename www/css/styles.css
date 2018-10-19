@@ -1,0 +1,85 @@
+/*
+   statusbar-overlay sets the background color for the overlay. Black text is the default when the statusbar plugin is not added. When the
+   statusbar plugin is added, it also adds default setting to make the content white via:
+
+       <preference name="StatusBarStyle" value="lightcontent"/>
+
+   Setting the background color to black will allow the default light content (white text/icons) to show on it. The statusbar plugin is included
+   in the config.xml file and will be added by the CLI when you build locally.
+
+   See https://github.com/apache/cordova-plugin-statusbar
+*/
+
+.statusbar-overlay {
+    background: #000000;
+}
+
+p.text {
+    text-align: center;
+}
+
+.list.media-list.debts-list {
+    margin-top: 0;
+}
+
+/*.ios a.link.link-disabled {*/
+a.link.link-disabled {
+    opacity: .3;
+}
+
+.page[data-name="init"] .page-content {
+    text-align: center;
+}
+
+.page[data-name="init"] .preloader {
+    position: absolute;
+    top: 50%;
+    margin-top: -22px;
+}
+
+.empty-list {
+    background: none;
+    /*text-align: center;*/
+}
+
+.empty-list p:first-child {
+    margin-bottom: 7px;
+}
+.empty-list p:last-child {
+    margin-top: 7px;
+}
+
+.file-button input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.file-button {
+    position: relative;
+}
+
+.cr-boundary {
+    background: black;
+}
+
+.smart-select-page.page-with-select-all .list {
+    margin-top: 16px;
+}
+
+.smart-select-page.page-with-select-all .select-all {
+    text-align: center;
+}
+
+.smart-select-page.page-with-select-all .select-all a {
+    margin-top: 16px;
+    font-size: 16px;
+}
+
+.currency {
+    padding-left: 3px;
+    color: #808080;
+}

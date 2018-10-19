@@ -1,0 +1,47 @@
+<template>
+    <div class="list media-list payment-list">
+        {{#if payments.length}}
+        <ul>
+            {{#each payments}}
+            <li>
+                <a href="/payment/edit/{{payment_id}}/" class="item-link item-content">
+                    <div class="item-media"><img src="{{avatar payer}}" width="80"/></div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{title}}</div>
+                            <div class="item-after">{{amount}} {{format_currency currency}}</div>
+                        </div>
+                        <div class="item-text">divide with:</div>
+                        <div class="item-subtitle">{{participant.length}} {{../locale_str.people_subtitle}}</div>
+                    </div>
+                </a>
+            </li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <div class="block empty-list text-align-center">
+            <!--<p>You haven't payment yet</p>
+            <p>Press  <i class="icon f7-icons">add</i> button to add one</p>-->
+            {{locale_str.no_payment_msg}}
+        </div>
+        {{/if}}
+    </div>
+</template>
+
+<style>
+    .payment-list .item-media img {
+        border-radius: 50%;
+    }
+</style>
+
+<!--suppress JSAnnotator -->
+<script>
+
+    return {
+        data: function () {
+            return app.utils.extend({}, app.data, {
+                payments: service.payment.getByDebtId(this.$route.params.debt_id)
+            });
+        }
+    };
+</script>

@@ -1,0 +1,49 @@
+<template>
+    <div data-name="debt-show" class="page">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <a href="/debt/list/" class="back link">
+                        <i class="icon icon-back"></i>
+                        <span class="ios-only">{{locale_str.back}}</span>
+                    </a>
+                </div>
+                <div class="title">{{debt.title}}</div>
+                <div class="right">
+                    <a href="/debt/edit/{{$route.params.debt_id}}/" class="link">
+                        <i class="icon f7-icons">gear</i>
+                    </a>
+                    <a href="/payment/new/{{$route.params.debt_id}}/" class="link">
+                        <i class="icon f7-icons">add</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="toolbar tabbar">
+            <div class="toolbar-inner">
+                <a href="./" class="tab-link" data-route-tab-id="payments">{{locale_str.payments_tab_name}}</a>
+                <a href="./calculations/" class="tab-link" data-route-tab-id="calculation">{{locale_str.calculations_tab_name}}</a>
+                <a href="./details/" class="tab-link" data-route-tab-id="details">{{locale_str.details_tab_name}}</a>
+            </div>
+        </div>
+
+        <div class="tabs tabs-routable">
+            <div class="page-content tab" id="payments"></div>
+            <div class="page-content tab" id="calculation"></div>
+            <div class="page-content tab" id="details"></div>
+        </div>
+    </div>
+</template>
+
+<!--suppress JSAnnotator -->
+<script>
+
+    return {
+        data: function () {
+            return app.utils.extend({}, app.data, {
+                debt: service.debt.get(this.$route.params.debt_id)
+            });
+        }
+    };
+</script>

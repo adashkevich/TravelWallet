@@ -1,0 +1,136 @@
+<template>
+    <div data-name="new-debt" class="page">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <a href="#" class="back link">
+                        <i class="icon icon-back"></i>
+                        <span class="ios-only">{{locale_str.back}}</span>
+                    </a>
+                </div>
+                <div class="title">{{locale_str.new_debt_page_title}}</div>
+                <div class="right">
+                    <a @click="create" id="new-debt-submit" href="#" class="link link-disabled">
+                        {{#if device.android }}
+                        <i class="f7-icons">check</i>
+                        {{/if}}
+                        <span class="ios-only">{{locale_str.done}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <form class="list no-hairlines-md" id="new-debt-form">
+                <ul>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Title</div>
+                            <div class="item-input-wrap">
+                                <input @change="change" type="text" name="title" required validate placeholder="{{locale_str.debt_title_placeholder}}">
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <il>
+                        <a class="item-link smart-select smart-select-init smart-select-participant" data-open-in="popup"
+                           data-searchbar="true" data-searchbar-placeholder="{{users.length}} {{locale_str.user_search_placeholder}}">
+                            <select name="participant" @change="change" required multiple>
+                                {{#each users}}
+                                <option value="{{user_id}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">{{locale_str.debt_participants_title}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </il>
+
+                    <li>
+                        <a class="item-link smart-select smart-select-init" data-open-in="popup"
+                           data-searchbar="true"
+                           data-searchbar-placeholder="{{locale_str.currency_search_placeholder}}">
+                            <select name="currency" @change="change" required multiple>
+                                {{#each currencies}}
+                                <option value="{{this.currency_id}}">{{currency_name this.currency_id}}</option>
+                                {{/each}}
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">{{locale_str.currency_title}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</template>
+
+<style>
+
+</style>
+
+<!--suppress JSAnnotator -->
+<script>
+    var compiledTemplate = Template7.compile('<option value="{{user_id}}">{{name}}</option>');
+    var searchbarPlaceholderTemplate = Template7.compile('{{users.length}} {{locale_str.user_search_placeholder}}');
+
+    function validate() {
+        var formData = app.form.convertToData('#new-debt-form');
+        if (formData.title && formData.currency.length && formData.participant.length) {
+            $$('#new-debt-submit').removeClass('link-disabled');
+        } else {
+            $$('#new-debt-submit').addClass('link-disabled');
+        }
+    }
+
+    return {
+        data: function () {
+            return app.data;
+        },
+        methods: {
+            create: function () {
+                if (!$$('#new-debt-submit').hasClass('link-disabled')) {
+                    service.debt.create(app.form.convertToData('#new-debt-form'), function (result) {
+                        app.data.debts.push(result);
+                        app.views.current.router.navigate('/debt/list/', {
+                            reloadCurrent: true,
+                            ignoreCache: true
+                        });
+                    });
+                }
+            },
+            change: function () {
+                validate();
+            }
+        },
+        on: {
+            pageInit: function () {
+                $$('.smart-select-participant').on('smartselect:open', function () {
+                    $$('.smart-select-page').prepend('<div class="fab fab-right-bottom color-blue"><a href="#"><i class="icon f7-icons">add</i></a></div>');
+
+                    $$('.smart-select-page .fab').click(function () {
+                        app.smartSelect.close('.smart-select-participant');
+
+                        var new_contact_popup = app.popup.create_new_contact_popup();
+                        new_contact_popup.once('close', function (e, popup) {
+                            app.data.users.forEach(function (user) {
+//                                TODO change placeholder
+//                                $$('.smart-select-participant').data('searchbar-placeholder', searchbarPlaceholderTemplate(app.data));
+                                if (!$$('.smart-select-participant option[value=":user_id"]'.replace(':user_id', user.user_id)).length) {
+                                    $$('.smart-select-participant select').append(compiledTemplate(user));
+                                }
+                            });
+                            app.smartSelect.open('.smart-select-participant');
+                        });
+                        new_contact_popup.open();
+                    });
+                });
+            }
+        }
+    };
+</script>
