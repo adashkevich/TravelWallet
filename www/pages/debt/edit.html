@@ -54,7 +54,7 @@
                            data-searchbar-placeholder="{{locale_str.search_placeholder}}">
                             <select name="currency" @change="change" required multiple>
                                 {{#each currencies}}
-                                <option value="{{this.currency_id}}">{{this.title}}</option>
+                                <option value="{{this.currency_id}}">{{currency_name this.currency_id}}</option>
                                 {{/each}}
                             </select>
                             <div class="item-content">

@@ -155,11 +155,9 @@
                         if(isCheckedMore() && select_all) {
                             $$page.find('.select-all a').text('unselect all');
                             select_all = false;
-                            console.log('unselect all');
                         } else if (!isCheckedMore() && !select_all) {
                             $$page.find('.select-all a').text('select all');
                             select_all = true;
-                            console.log('select all');
                         }
                     });
 
