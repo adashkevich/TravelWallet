@@ -46,9 +46,11 @@ var locale_strings = {
         money_payback_label: 'Should payback',
         money_receive_label: 'Should receive',
         money_owe_label: 'owe to',
+        divide_with_label: 'divide with:',
 
         delete_debt_popup_msg: 'Are you sure you want to delete this item ?',
         no_payment_msg: '<p>You haven\'t payment yet</p><p>Press  <i class="icon f7-icons">add</i> button to add one</p>',
+        no_debt_msg: '<p>You haven\'t debt book yet</p><p>Press  <i class="icon f7-icons">add</i> button to add one</p>',
 
         currency: {
             usd: '(USD) US Dollar',
@@ -261,9 +263,11 @@ var locale_strings = {
         money_payback_label: 'Должен ещё заплатить',
         money_receive_label: 'Должны вернуть',
         money_owe_label: 'должен',
+        divide_with_label: 'разделено с:',
 
         delete_debt_popup_msg: 'Вы уверены что хотите удалить этот расчётник ?',
-        no_payment_msg: '<p>У вас ещё нет расчётников</p><p>Нажмите  <i class="icon f7-icons">add</i> кнопку что бы его создать</p>',
+        no_payment_msg: '<p>Вы ещё не добавили ни одного платежа.</p><p>Нажмите  <i class="icon f7-icons">add</i> кнопку чтобы его создать</p>',
+        no_debt_msg: '<p>Вы ещё не добавили ни одного расчётника</p><p>Нажмите  <i class="icon f7-icons">add</i> кнопку чтобы его создать</p>',
 
         currency: {
             usd: '(USD) Доллар США',

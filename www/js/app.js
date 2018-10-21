@@ -162,3 +162,8 @@ $$(document).on('page:init', '.page[data-name="init"]', function (e) {
     initAppData();
     initPopups();
 });
+
+//Wrong submit fix
+$$(document).on('submit', 'form', function (e) {
+    e.preventDefault();
+});
