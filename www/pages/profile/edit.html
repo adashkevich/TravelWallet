@@ -47,10 +47,11 @@
                             </div>
                         </div>
                     </li>
-                    <li class="item-content item-input">
+                    <li class="item-content item-input phone-input">
                         <div class="item-inner">
                             <div class="item-title item-label">{{locale_str.phone_title}}</div>
                             <div class="item-input-wrap">
+                                <i>+</i>
                                 <input @change="change" type="number" name="phone" value="{{current_user.phone}}" required validate placeholder="{{locale_str.phone_example}}">
                                 <span class="input-clear-button"></span>
                             </div>

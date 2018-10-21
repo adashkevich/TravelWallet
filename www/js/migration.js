@@ -5,7 +5,7 @@ db.transaction(function (tx) {
     tx.executeSql('CREATE TABLE IF NOT EXISTS users (user_id UNIQUE, name, phone, ava, in_app, sync)');
     tx.executeSql('CREATE TABLE IF NOT EXISTS debts (debt_id, title, currency, participant, owe, status, sync)');
     tx.executeSql('CREATE TABLE IF NOT EXISTS payments (payment_id, debt_id, title, amount NUM, currency, payer, participant, deleted, sync)');
-    tx.executeSql('CREATE TABLE IF NOT EXISTS currencies (currency_id UNIQUE, title, sign, name)');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS currencies (currency_id UNIQUE, title, sign)');
     tx.executeSql('CREATE TABLE IF NOT EXISTS currency_rates (from_currency_id, to_currency_id, rate NUM, PRIMARY KEY (from_currency_id, to_currency_id))');
 });
 
@@ -46,7 +46,6 @@ db.transaction(function (tx) {
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('ils', 'ILS', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('pln', 'PLN', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('qar', 'QAR', '')");
-    tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('xau', 'XAU', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('omr', 'OMR', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('cop', 'COP', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('clp', 'CLP', '')");
@@ -78,7 +77,6 @@ db.transaction(function (tx) {
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('irr', 'IRR', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('dop', 'DOP', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('isk', 'ISK', '')");
-    tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('xag', 'XAG', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('crc', 'CRC', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('syp', 'SYP', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('lyd', 'LYD', '')");
@@ -145,7 +143,6 @@ db.transaction(function (tx) {
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('lrd', 'LRD', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('kgs', 'KGS', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('gip', 'GIP', '')");
-    tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('xpt', 'XPT', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('mdl', 'MDL', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('cup', 'CUP', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('khr', 'KHR', '')");
@@ -156,10 +153,8 @@ db.transaction(function (tx) {
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('szl', 'SZL', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('cve', 'CVE', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('srd', 'SRD', '')");
-    tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('xpd', 'XPD', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('svc', 'SVC', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('bsd', 'BSD', '')");
-    tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('xdr', 'XDR', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('rwf', 'RWF', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('awg', 'AWG', '')");
     tx.executeSql("INSERT OR IGNORE INTO currencies (currency_id, title, sign) VALUES ('djf', 'DJF', '')");
@@ -248,8 +243,6 @@ db.transaction(function (tx) {
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('pln', 'usd', 0.2671772661)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'qar', 3.6400000000)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('qar', 'usd', 0.2747252747)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'xau', 0.0008167085)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('xau', 'usd', 1224.4270752661)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'omr', 0.3845000000)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('omr', 'usd', 2.6007802341)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'cop', 3087.7681837516)");
@@ -312,8 +305,6 @@ db.transaction(function (tx) {
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('dop', 'usd', 0.0203563823)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'isk', 117.4479528192)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('isk', 'usd', 0.0085144098)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'xag', 0.0685640109)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('xag', 'usd', 14.5849110470)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'crc', 581.6108935997)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('crc', 'usd', 0.0017193626)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'syp', 514.9934122270)");
@@ -446,8 +437,6 @@ db.transaction(function (tx) {
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('kgs', 'usd', 0.0144300236)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'gip', 0.7650480110)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('gip', 'usd', 1.3071075091)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'xpt', 0.0012058071)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('xpt', 'usd', 829.3200462993)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'mdl', 16.8760256175)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('mdl', 'usd', 0.0592556579)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'cup', 26.5000000000)");
@@ -468,14 +457,10 @@ db.transaction(function (tx) {
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('cve', 'usd', 0.0104181832)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'srd', 7.4574243361)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('srd', 'usd', 0.1340945553)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'xpd', 0.0009279425)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('xpd', 'usd', 1077.6529795758)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'svc', 8.7500000000)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('svc', 'usd', 0.1142857143)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'bsd', 1.0000000000)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('bsd', 'usd', 1.0000000000)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'xdr', 0.7186499712)");
-    tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('xdr', 'usd', 1.3914980033)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'rwf', 870.5546812937)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('rwf', 'usd', 0.0011486929)");
     tx.executeSql("INSERT OR IGNORE INTO currency_rates (from_currency_id, to_currency_id, rate) VALUES ('usd', 'awg', 1.7900000000)");

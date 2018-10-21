@@ -94,9 +94,7 @@
         methods: {
             create: function () {
                 if(!$$('#debt-edit-submit').hasClass('link-disabled')) {
-//                    app.preloader.show();
                     service.debt.update(app.form.convertToData('#debt-edit-form'), function (result) {
-//                        app.preloader.hide();
                         app.views.current.router.back({force: true});
                     });
                 }

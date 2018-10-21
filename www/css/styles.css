@@ -83,3 +83,21 @@ a.link.link-disabled {
     padding-left: 3px;
     color: #808080;
 }
+
+.list .phone-input i {
+    position: absolute;
+    height: 100%;
+    line-height: 44px;
+}
+
+.md .list .phone-input i {
+    line-height: 36px;
+}
+
+.list .phone-input input {
+    padding-left: 11px;
+}
+
+.md .list .phone-input input {
+    padding-left: 10px;
+}

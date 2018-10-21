@@ -117,11 +117,11 @@
             payment = service.payment.get(this.$route.params.payment_id);
             debt = service.debt.get(payment.debt_id);
 
-            return app.utils.extend({
+            return app.utils.extend({}, app.data, {
                 currencies: service.currency.getByIds(debt.currency),
                 users: service.user.getByIds(debt.participant),
                 current_user: app.data.current_user
-            }, app.data);
+            });
         },
         methods: {
             update: function () {
