@@ -266,8 +266,8 @@ var locale_strings = {
         divide_with_label: 'разделено с:',
 
         delete_debt_popup_msg: 'Вы уверены что хотите удалить этот расчётник ?',
-        no_payment_msg: '<p>Вы ещё не добавили ни одного платежа.</p><p>Нажмите  <i class="icon f7-icons">add</i> кнопку чтобы его создать</p>',
-        no_debt_msg: '<p>Вы ещё не добавили ни одного расчётника</p><p>Нажмите  <i class="icon f7-icons">add</i> кнопку чтобы его создать</p>',
+        no_payment_msg: '<p>Вы ещё не добавили ни одного платежа.</p><p>Нажмите кнопку <i class="icon f7-icons">add</i> чтобы его создать</p>',
+        no_debt_msg: '<p>Вы ещё не добавили ни одного расчётника</p><p>Нажмите кнопку <i class="icon f7-icons">add</i> чтобы его создать</p>',
 
         currency: {
             usd: '(USD) Доллар США',

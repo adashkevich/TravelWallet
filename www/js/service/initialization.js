@@ -21,7 +21,6 @@ service.init = (function () {
     }
 
     function callChainEl(chainEl) {
-        ++taskCount;
         chainEl.status = status.PROCESSING;
         chainEl.func.apply({}, chainEl.arg)
     }
@@ -29,6 +28,7 @@ service.init = (function () {
     return {
 
         add: function (func, arg, name, require) {
+            ++taskCount;
             initChain.push({
                 func: func,
                 arg: Array.isArray(arg) ? arg : [arg],
@@ -53,6 +53,10 @@ service.init = (function () {
             console.log('finish: ' + name);
             --taskCount;
 
+            if (!taskCount) {
+                after && after();
+            }
+
             if (name) {
                 initChain.filter(function (chainEl) {
                     return chainEl.name === name;
@@ -61,10 +65,6 @@ service.init = (function () {
                 });
             }
             checkWaitingStatus();
-
-            if (!taskCount) {
-                after && after();
-            }
         }
     }
 })();

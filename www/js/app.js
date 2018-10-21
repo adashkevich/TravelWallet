@@ -158,7 +158,7 @@ function initAppData() {
     });
 }
 
-$$(document).on('page:init', '.page[data-name="init"]', function (e) {
+$$(document).once('page:init', '.page[data-name="init"]', function (e) {
     initAppData();
     initPopups();
 });
