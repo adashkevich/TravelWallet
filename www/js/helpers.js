@@ -4,6 +4,21 @@ Template7.registerHelper('name', function (id, options) {
     return service.user.get(id).name;
 });
 
+function shortAmountFormat(amount) {
+    if(amount > 1000) {
+        return shortAmountFormat(amount / 1000) + 'k';
+    }
+    if (amount < 10) {
+        return (Math.round(amount * 10)/10).toFixed(1);
+    }
+    return Math.round(amount);
+}
+
+Template7.registerHelper('short_format_amount', function (amount, options) {
+    if (typeof amount === 'function') amount = amount.call(this);
+    return shortAmountFormat(+amount);
+});
+
 Template7.registerHelper('format_amount', function (amount, options) {
     if (typeof amount === 'function') amount = amount.call(this);
     return (Math.round(amount * 100)/100).toFixed(2);
