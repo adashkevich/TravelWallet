@@ -76,12 +76,10 @@ var app = new Framework7({
             currencies: [],
             currency_rates: [],
             locale_str: utils.localeStr(),
-            device: app.device
+            device: device
         };
     }
 });
-
-app.views.create('.view-main');
 
 function initAppData() {
 
@@ -167,3 +165,5 @@ $$(document).once('page:init', '.page[data-name="init"]', function (e) {
 $$(document).on('submit', 'form', function (e) {
     e.preventDefault();
 });
+
+app.views.create('.view-main');

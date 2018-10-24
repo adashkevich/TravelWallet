@@ -2,12 +2,22 @@ service.image = function () {
 
     return {
 
-        save: function (avatarBlob, success, error) {
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-                utils.saveBlob(avatarBlob, utils.uuid() + ".png", fs, function (fileEntry) {
-                    success && success(fileEntry.toURL());
+        save: function (croppie, success, error) {
+            if(window.requestFileSystem && LocalFileSystem) {
+                croppie.result('blob').then(function (blob) {
+                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+                        utils.saveBlob(blob, utils.uuid() + ".png", fs, function (fileEntry) {
+                            success && success(fileEntry.toURL());
+                        });
+                    }, function (e) { error && error(e); });
                 });
-            }, function (e) { error && error(e); });
+            } else {
+                croppie.result('base64').then(function (base64) {
+                    success && success(base64);
+                });
+            }
+
+
         },
 
         predefined: function () {

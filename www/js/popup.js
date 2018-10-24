@@ -36,10 +36,8 @@ function initPopups() {
                     }
 
                     if (ava_changed || croppie.get().zoom !== 1) {
-                        croppie.result('blob').then(function (avaBlob) {
-                            service.image.save(avaBlob, function (ava_url) {
-                                _create(ava_url);
-                            });
+                        service.image.save(croppie, function (ava_url) {
+                            _create(ava_url);
                         });
                     } else {
                         _create(ava_url);
