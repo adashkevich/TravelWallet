@@ -101,8 +101,8 @@
     </il>
 </script>
 
-<script id="contact-new-template" type="text/template7">
-    <div class="popup generated">
+<script id="new-user-template" type="text/template7">
+    <div class="popup generated" data-name="new-user">
         <div class="view">
             <div class="page">
                 <div class="navbar">
@@ -125,8 +125,20 @@
                     </div>
                 </div>
                 <div class="page-content">
+                    <div class="avatar-wrapper">
+                        <img id="avatar" src="{{avatar}}"/>
+                        <button @click="rotate" id="avatar-rotate-btn" class="button button-fill button-round color-white text-color-blue"><i class="f7-icons">refresh</i></button>
+                    </div>
                     <form class="list no-hairlines-md" id="participant-new-form">
                         <ul>
+                            <li class="item-content item-input">
+                                <div class="item-inner">
+                                    <button class="button col file-button">
+                                        <span>{{locale_str.choose_photo_btn}}</span>
+                                        <input type="file" accept="image/*"/>
+                                    </button>
+                                </div>
+                            </li>
                             <li class="item-content item-input">
                                 <div class="item-inner">
                                     <div class="item-title item-label">{{locale_str.user_name_title}}</div>
@@ -136,30 +148,8 @@
                                     </div>
                                 </div>
                             </li>
-
-                            <li class="item-content item-input phone-input">
-                                <div class="item-inner">
-                                    <div class="item-title item-label">{{locale_str.phone_title}}</div>
-                                    <div class="item-input-wrap">
-                                        <i>+</i>
-                                        <input type="number" required validate name="phone" placeholder="{{locale_str.phone_example}}">
-                                        <span class="input-clear-button"></span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item-content item-input">
-                                <div class="item-inner">
-                                    <button class="button col file-button">
-                                        <span>{{locale_str.choose_photo_btn}}</span>
-                                        <input type="file" accept="image/*"/>
-                                    </button>
-                                </div>
-                            </li>
                         </ul>
                     </form>
-                    <div class="avatar-wrapper">
-                        <img id="avatar" src="{{avatar}}"/>
-                    </div>
                 </div>
             </div>
         </div>

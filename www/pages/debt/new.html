@@ -118,8 +118,6 @@
                         var new_contact_popup = app.popup.create_new_contact_popup();
                         new_contact_popup.once('close', function (e, popup) {
                             app.data.users.forEach(function (user) {
-//                                TODO change placeholder
-//                                $$('.smart-select-participant').data('searchbar-placeholder', searchbarPlaceholderTemplate(app.data));
                                 if (!$$('.smart-select-participant option[value=":user_id"]'.replace(':user_id', user.user_id)).length) {
                                     $$('.smart-select-participant select').append(compiledTemplate(user));
                                 }

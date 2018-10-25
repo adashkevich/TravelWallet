@@ -90,8 +90,13 @@ a.link.link-disabled {
     line-height: 44px;
 }
 
+.list .phone-input i {
+    font-family: -apple-system,SF UI Text,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
 .md .list .phone-input i {
     line-height: 36px;
+    font-family: Roboto,Noto,Helvetica,Arial,sans-serif;
 }
 
 .list .phone-input input {
@@ -100,4 +105,33 @@ a.link.link-disabled {
 
 .md .list .phone-input input {
     padding-left: 10px;
+}
+
+.avatar-wrapper {
+    position: relative;
+}
+
+.md #avatar-rotate-btn {
+    min-width: 32px;
+    padding: 0 8px;
+}
+
+#avatar-rotate-btn {
+    width: auto;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 2;
+    min-width: 29px;
+    line-height: 28px;
+    padding: 0;
+}
+
+.file-button {
+    width: 150px !important;
+    margin: 10px auto;
+}
+
+.page[data-name="user-edit"] .list, .popup[data-name="new-user"] .list {
+    margin-top: 0;
 }

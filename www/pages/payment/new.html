@@ -79,7 +79,7 @@
                            data-searchbar="true" data-searchbar-placeholder="{{locale_str.search_placeholder}}">
                             <select name="participant" @change="change" required multiple>
                                 {{#each users}}
-                                    <option value="{{user_id}}">{{name}}</option>
+                                    <option selected value="{{user_id}}">{{name}}</option>
                                 {{/each}}
                             </select>
                             <div class="item-content">

@@ -1,8 +1,8 @@
 function initPopups() {
-    var contactNewCompiledTemplate = Template7.compile($$('#contact-new-template').html());
+    var contactNewCompiledTemplate = Template7.compile($$('#new-user-template').html());
 
     app.popup.create_new_contact_popup = function () {
-        var ava_changed = false, ava_url = '', croppie;
+        var ava_changed = false, ava_url = '', croppie, orientations = [1,  6, 3, 8], orientation_index = 0;
 
         var contact_new_popup = app.popup.create({
             content: contactNewCompiledTemplate(app.utils.extend({}, app.data, {
@@ -11,11 +11,10 @@ function initPopups() {
         });
 
         contact_new_popup.once('open', function (popup) {
-            console.log('init');
 
             function validate() {
                 var formData = app.form.convertToData('#participant-new-form');
-                if (formData.name && formData.phone) {
+                if (formData.name) {
                     $$('#participant-new-submit').removeClass('link-disabled');
                 } else {
                     $$('#participant-new-submit').addClass('link-disabled');
@@ -28,7 +27,6 @@ function initPopups() {
                         var form_data = app.form.convertToData('#participant-new-form');
                         service.user.create({
                             name: form_data.name,
-                            phone: form_data.phone,
                             ava: ava
                         }, function (result) {
                             contact_new_popup.close();
@@ -70,9 +68,14 @@ function initPopups() {
                 }
             }
 
+            function rotate () {
+                croppie.bind({url: croppie.data.url, orientation: orientations[++orientation_index % 4]});
+            }
+
             popup.$el.find('input').change(change);
             popup.$el.find('input[type="file"]').change(file);
             popup.$el.find('#participant-new-submit').click(create);
+            popup.$el.find('#avatar-rotate-btn').click(rotate);
 
             var width = popup.$el.width(),
                 height = Math.round(width * 0.6);
@@ -80,7 +83,8 @@ function initPopups() {
             $$('#avatar').parent().css({height: height + 'px', width: width + 'px'});
             app.data.croppie = croppie = new Croppie(document.getElementById('avatar'), {
                 viewport: {height: height - 20, width: height - 20, type: 'circle'},
-                showZoomer: false
+                showZoomer: false,
+                enableOrientation: true
             });
         });
 
