@@ -75,7 +75,7 @@ function initPopups() {
             popup.$el.find('input').change(change);
             popup.$el.find('input[type="file"]').change(file);
             popup.$el.find('#participant-new-submit').click(create);
-            popup.$el.find('#avatar-rotate-btn').click(rotate);
+            popup.$el.find('.avatar-rotate-btn').click(rotate);
 
             var width = popup.$el.width(),
                 height = Math.round(width * 0.6);

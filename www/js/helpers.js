@@ -9,7 +9,11 @@ function shortAmountFormat(amount) {
         return shortAmountFormat(amount / 1000) + 'k';
     }
     if (amount < 10) {
-        return (Math.round(amount * 10)/10).toFixed(1);
+        var result = Math.round(amount * 10);
+        if(result % 10 === 0) {
+            return (result / 10).toFixed(0);
+        }
+        return (result/10).toFixed(1);
     }
     return Math.round(amount);
 }
