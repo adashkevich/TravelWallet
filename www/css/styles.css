@@ -111,12 +111,12 @@ a.link.link-disabled {
     position: relative;
 }
 
-.md .avatar-rotate-btn {
+.md .button.avatar-rotate-btn {
     min-width: 32px;
     padding: 0 8px;
 }
 
-.avatar-rotate-btn {
+.button.avatar-rotate-btn {
     width: auto;
     position: absolute;
     bottom: 10px;
